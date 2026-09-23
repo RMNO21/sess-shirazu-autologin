@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "ورود خودکار سامانه سس دانشگاه شیراز",
+  "short_name": "SESS AutoLogin",
+  "version": "1.0.0",
+  "description": "ورود خودکار امن به سامانه سس دانشگاه شیراز با پشتیبانی از ریست هوشمند کپچا",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "default_title": "تنظیمات ورود خودکار سامانه سس"
+  },
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "permissions": [
+    "storage",
+    "cookies"
+  ],
+  "host_permissions": [
+    "*://sess.shirazu.ac.ir/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://sess.shirazu.ac.ir/*"
+      ],
+      "js": [
+        "content/content.js"
+      ],
+      "css": [
+        "content/content.css"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}
