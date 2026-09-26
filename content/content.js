@@ -2,13 +2,10 @@
 (function initFastSessAutoLogin() {
   if (window !== window.top) return;
 
-  // Pre-fetch credentials and settings immediately in parallel at document_start
-  const storagePromise = chrome.storage.local.get([
-    "username",
-    "password",
-    "autoLogin",
-    "autoResetCaptcha"
-  ]);
+  // Pre-fetch and decrypt credentials immediately in parallel at document_start
+  const credentialsPromise = window.SessCrypto
+    ? window.SessCrypto.getDecryptedCredentials()
+    : chrome.storage.local.get(["username", "password", "autoLogin", "autoResetCaptcha"]);
 
   let executed = false;
   let observer = null;
@@ -80,7 +77,7 @@
       return;
     }
 
-    const settings = await storagePromise;
+    const settings = await credentialsPromise;
     const {
       username = "",
       password = "",

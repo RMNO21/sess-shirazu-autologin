@@ -22,14 +22,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 3500);
   }
 
-  // Load existing settings
+  // Load existing settings with decryption
   try {
-    const data = await chrome.storage.local.get([
-      "username",
-      "password",
-      "autoLogin",
-      "autoResetCaptcha"
-    ]);
+    const data = await window.SessCrypto.getDecryptedCredentials();
 
     if (data.username) usernameInput.value = data.username;
     if (data.password) passwordInput.value = data.password;
@@ -59,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // Save settings
+  // Save settings with AES-GCM encryption
   settingsForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const username = usernameInput.value.trim();
@@ -73,16 +68,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-      await chrome.storage.local.set({
+      await window.SessCrypto.saveCredentials(
         username,
         password,
         autoLogin,
         autoResetCaptcha
-      });
-      showStatus("اطلاعات با موفقیت ذخیره شد. ورود خودکار آماده است.");
+      );
+      showStatus("اطلاعات با رمزگذاری محلی AES-GCM با موفقیت ذخیره شد.");
     } catch (err) {
       console.error("Failed to save settings:", err);
-      showStatus("خطا در ذخیره اطلاعات.", "error");
+      showStatus("خطا در ذخیره اطلاعات رمزگذاری‌شده.", "error");
     }
   });
 

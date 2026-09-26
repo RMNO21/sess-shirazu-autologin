@@ -34,6 +34,7 @@
         "*://sess.shirazu.ac.ir/*"
       ],
       "js": [
+        "utils/crypto.js",
         "content/content.js"
       ],
       "css": [
