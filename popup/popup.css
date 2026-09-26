@@ -115,23 +115,6 @@ body {
   box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
 }
 
-.icon-btn {
-  position: absolute;
-  left: 8px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  border-radius: 4px;
-}
-
-.icon-btn:hover {
-  color: var(--text-main);
-}
 
 .toggle-group {
   display: flex;
